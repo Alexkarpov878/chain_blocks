@@ -101,6 +101,9 @@ GEM
       reline (>= 0.3.8)
     diff-lcs (1.6.2)
     dotenv (3.1.8)
+    dotenv-rails (3.1.8)
+      dotenv (= 3.1.8)
+      railties (>= 6.1)
     drb (2.2.3)
     ed25519 (1.4.0)
     erb (5.0.2)
@@ -112,6 +115,8 @@ GEM
     factory_bot_rails (6.5.0)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
+    faker (3.5.2)
+      i18n (>= 1.8.11, < 2)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
@@ -388,7 +393,9 @@ DEPENDENCIES
   brakeman
   database_cleaner-active_record
   debug
+  dotenv-rails
   factory_bot_rails
+  faker
   importmap-rails
   jbuilder
   kamal

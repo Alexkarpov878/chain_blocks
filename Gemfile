@@ -23,6 +23,7 @@ gem "thruster", require: false
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "brakeman", require: false
+  gem "dotenv-rails"
 end
 
 group :development do
@@ -41,4 +42,5 @@ group :test do
   gem "factory_bot_rails"
   gem "rspec-rails", "~> 8.0", require: false
   gem 'database_cleaner-active_record'
+  gem 'faker'
 end
