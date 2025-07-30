@@ -270,6 +270,9 @@ GEM
       rubocop (>= 1.72)
       rubocop-performance (>= 1.24)
       rubocop-rails (>= 2.30)
+    rubocop-rspec (3.6.0)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
     solid_cable (3.0.11)
@@ -348,7 +351,11 @@ DEPENDENCIES
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)
-  rubocop-rails-omakase
+  rubocop (~> 1.77)
+  rubocop-performance (~> 1.25.0)
+  rubocop-rails (~> 2.32)
+  rubocop-rails-omakase (~> 1.1.0)
+  rubocop-rspec (~> 3.6.0)
   solid_cable
   solid_cache
   solid_queue

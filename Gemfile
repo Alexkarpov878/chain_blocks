@@ -23,9 +23,13 @@ gem "thruster", require: false
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "brakeman", require: false
-  gem "rubocop-rails-omakase", require: false
 end
 
 group :development do
   gem "web-console"
+  gem "rubocop", "~> 1.77", require: false
+  gem "rubocop-rails", "~> 2.32", require: false
+  gem "rubocop-rspec", "~> 3.6.0", require: false
+  gem "rubocop-performance", "~> 1.25.0", require: false
+  gem "rubocop-rails-omakase", "~> 1.1.0", require: false
 end
