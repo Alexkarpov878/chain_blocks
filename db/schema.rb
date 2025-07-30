@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_30_195946) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_30_202013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "actions", force: :cascade do |t|
+    t.bigint "chain_transaction_id", null: false
+    t.string "action_type", null: false
+    t.jsonb "data", default: {}, null: false
+    t.decimal "deposit", precision: 38
+    t.datetime "executed_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["action_type"], name: "index_actions_on_action_type"
+    t.index ["chain_transaction_id"], name: "index_actions_on_chain_transaction_id"
+    t.index ["deposit"], name: "index_actions_on_deposit"
+  end
 
   create_table "blocks", force: :cascade do |t|
     t.bigint "chain_id", null: false
@@ -52,6 +65,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_30_195946) do
     t.index ["slug"], name: "index_chains_on_slug", unique: true
   end
 
+  add_foreign_key "actions", "chain_transactions"
   add_foreign_key "blocks", "chains"
   add_foreign_key "chain_transactions", "blocks"
 end
