@@ -33,3 +33,12 @@ group :development do
   gem "rubocop-performance", "~> 1.25.0", require: false
   gem "rubocop-rails-omakase", "~> 1.1.0", require: false
 end
+
+group :test do
+  gem "vcr"
+  gem "webmock"
+  gem "shoulda-matchers"
+  gem "factory_bot_rails"
+  gem "rspec-rails", "~> 8.0", require: false
+  gem 'database_cleaner-active_record'
+end
