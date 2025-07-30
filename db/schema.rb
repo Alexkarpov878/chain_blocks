@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_30_194151) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_30_195946) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_30_194151) do
     t.index ["chain_id", "block_hash"], name: "index_blocks_on_chain_id_and_block_hash", unique: true
     t.index ["chain_id", "height"], name: "index_blocks_on_chain_id_and_height"
     t.index ["chain_id"], name: "index_blocks_on_chain_id"
+  end
+
+  create_table "chain_transactions", force: :cascade do |t|
+    t.bigint "block_id", null: false
+    t.string "transaction_hash", null: false
+    t.string "sender", null: false
+    t.string "receiver", null: false
+    t.bigint "gas_used", null: false
+    t.boolean "success", default: false, null: false
+    t.datetime "executed_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["block_id", "transaction_hash"], name: "index_chain_transactions_on_block_id_and_transaction_hash", unique: true
+    t.index ["block_id"], name: "index_chain_transactions_on_block_id"
+    t.index ["executed_at"], name: "index_chain_transactions_on_executed_at"
   end
 
   create_table "chains", force: :cascade do |t|
@@ -38,4 +53,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_30_194151) do
   end
 
   add_foreign_key "blocks", "chains"
+  add_foreign_key "chain_transactions", "blocks"
 end

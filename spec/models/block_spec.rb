@@ -3,6 +3,7 @@ require 'rails_helper'
 describe Block do
   describe 'associations' do
     it { is_expected.to belong_to(:chain) }
+    it { is_expected.to have_many(:chain_transactions).dependent(:destroy) }
   end
 
   describe 'validations' do
