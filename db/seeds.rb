@@ -7,3 +7,9 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+Chain.find_or_create_by!(slug: 'near') do |chain|
+  chain.name = 'NEAR'
+  chain.token_symbol = 'Ⓝ'
+  chain.token_decimals = 24
+end
