@@ -4,7 +4,7 @@ class CreateChains < ActiveRecord::Migration[8.0]
       t.string :name, null: false
       t.string :slug, null: false
       t.string :token_symbol, null: false
-      t.integer :token_decimals, default: 24, null: false
+      t.integer :token_decimals, null: false
       t.bigint :last_processed_block_height, default: 0, null: false
 
       t.timestamps
