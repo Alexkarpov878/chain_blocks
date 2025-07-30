@@ -1,0 +1,37 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+
+development:
+  primary:
+    <<: *default
+    database: chain_blocks_<%= Rails.env %>
+  queue:
+    <<: *default
+    database: chain_blocks_queue_<%= Rails.env %>
+    migrations_paths: db/queue_migrate
+
+test:
+  <<: *default
+  database: chain_blocks_test
+
+production:
+  primary: &primary_production
+    <<: *default
+    database: chain_blocks_production
+    username: chain_blocks
+    password: <%= ENV["CHAIN_BLOCKS_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: chain_blocks_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: chain_blocks_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: chain_blocks_production_cable
+    migrations_paths: db/cable_migrate
