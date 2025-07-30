@@ -45,3 +45,16 @@ If you run into any issues with this endpoint, please stop and contact us immedi
 - **Note:** not all transactions returned by the API are of type transfer.
 - Styling and CSS are not important, but if you decided to use Tailwind or whatever to make a nice final product that will certainly be given credit.
 - If you have any questions, and it is expected that you might, feel free to email us to ask any questions you have at rosa.adl@figment.io or by replying to this email.
+
+## Misc
+
+### Scripts
+
+While waiting for the reply to my questions, I wanted to better understand the NEAR transactions API, so I created two quick Ruby scripts for initial analysis. These helped identify patterns, validate integrity, and ensure a good grasp of the data structure - avoiding surprises or potential oversights during development.
+
+They can be ran like so:
+```
+cd ./script/near
+ruby data_check.rb
+ruby senders.rb
+```
