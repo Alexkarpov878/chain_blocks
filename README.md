@@ -1,6 +1,17 @@
 # Chain Blocks
 
-##  Take-Home Assessment instructions
+## Approach
+
+Prep:
+
+- [Add Near API response exploratory scripts](https://github.com/Alexkarpov878/chain_blocks/pull/1/files)
+- [Generate Rails boilerplate and setup](https://github.com/Alexkarpov878/chain_blocks/pull/2/files)
+
+1st sitting: (~1h)
+
+- [Implement Core Blockchain Data Models](https://github.com/Alexkarpov878/chain_blocks/pull/4)
+
+## Take-Home Assessment instructions
 
 This Take Home Test is designed to give you an opportunity to show prospective team mates how you approach problem solving, your coding style, and how you handle new problem domains.
 
@@ -21,12 +32,14 @@ We have created a simulated NEAR blockchain API endpoint that you should use her
 If you run into any issues with this endpoint, please stop and contact us immediately.
 
 ### Requirements
+
 - A root index page with a list of transfers with the following fields: sender, receiver and deposit.
 - A section on the page that shows the average gas burnt for all transactions.
 - The app should show the historical transactions it was able to fetch already even if they are no longer returned by the API.
 - Although we are using only NEAR in this example, it’s possible new chains will be added later.
 
 ### Additional Information
+
 - Focus on the requirements. Do not spend any time on non-code-related environmental issues like setting up Docker, etc.
 - The README should be thorough and complete. It should contain explanations of any questions you had, tradeoffs / decisions you made and the rationale behind them. Anyone should be able to view the README and immediately have any questions they might have about your project answered.
 - If you do end up spending more than 3hrs on the task please detail the extra work you have done so that they are clearly noticed and credit given.
@@ -53,6 +66,7 @@ If you run into any issues with this endpoint, please stop and contact us immedi
 While waiting for the reply to my questions, I wanted to better understand the NEAR transactions API, so I created two quick Ruby scripts for initial analysis. These helped identify patterns, validate integrity, and ensure a good grasp of the data structure - avoiding surprises or potential oversights during development.
 
 They can be ran like so:
+
 ```
 cd ./script/near
 ruby data_check.rb
