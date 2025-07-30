@@ -10,8 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 0) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_30_191721) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "chains", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.string "token_symbol", null: false
+    t.integer "token_decimals", default: 24, null: false
+    t.bigint "last_processed_block_height", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_chains_on_name", unique: true
+    t.index ["slug"], name: "index_chains_on_slug", unique: true
+  end
 end
