@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_30_191721) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_30_194151) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "blocks", force: :cascade do |t|
+    t.bigint "chain_id", null: false
+    t.string "block_hash", null: false
+    t.bigint "height", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chain_id", "block_hash"], name: "index_blocks_on_chain_id_and_block_hash", unique: true
+    t.index ["chain_id", "height"], name: "index_blocks_on_chain_id_and_height"
+    t.index ["chain_id"], name: "index_blocks_on_chain_id"
+  end
 
   create_table "chains", force: :cascade do |t|
     t.string "name", null: false
@@ -25,4 +36,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_30_191721) do
     t.index ["name"], name: "index_chains_on_name", unique: true
     t.index ["slug"], name: "index_chains_on_slug", unique: true
   end
+
+  add_foreign_key "blocks", "chains"
 end

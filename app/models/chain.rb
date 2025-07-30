@@ -3,4 +3,6 @@ class Chain < ApplicationRecord
   validates :slug, presence: true, uniqueness: { case_sensitive: false }
   validates :token_decimals, presence: true
   validates :token_symbol, presence: true
+
+  has_many :blocks, dependent: :destroy
 end
