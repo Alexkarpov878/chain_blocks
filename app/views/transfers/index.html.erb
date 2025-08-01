@@ -1,0 +1,56 @@
+<body>
+  <header>
+    <h1>Transfers</h1>
+  </header>
+
+  <main>
+    <section>
+      <%= form_with url: root_path, method: :get, local: true do |form| %>
+        <p>
+          <label for="chain_slug">Select Chain</label>
+          <%= form.select :chain_slug, options_from_collection_for_select(@chains, :slug, :name, selected: @chain.slug), id: "chain_slug" %>
+        </p>
+        <button type="submit">Filter</button>
+      <% end %>
+    </section>
+
+    <aside class="notice">
+      <h3>Chain Statistics</h3>
+      <p><strong>Average Gas Used on <%= @chain.name %>:</strong> <%= number_with_delimiter(@average_gas_used) %></p>
+    </aside>
+
+    <hr>
+
+    <article>
+      <header>
+        <h2><%= @chain.name %> Transfers</h2>
+      </header>
+
+      <table>
+        <caption>Recent Successful Transfer Transactions</caption>
+        <thead>
+          <tr>
+            <th>Sender</th>
+            <th>Receiver</th>
+            <th>Total Deposit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @transfers.any? %>
+            <% @transfers.each do |transaction| %>
+              <tr>
+                <td><code><%= transaction.sender %></code></td>
+                <td><code><%= transaction.receiver %></code></td>
+                <td><%= CurrencyPresenter.new(raw_amount: transaction.total_deposit, chain: transaction.block.chain).display_amount %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="3">No successful transfers found for this chain.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </article>
+  </main>
+</body>
