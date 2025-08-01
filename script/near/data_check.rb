@@ -29,6 +29,8 @@ class TransactionAnalyzer
     @data = []
     @issues = []
     @id_frequencies = Hash.new(0)
+    @hash_frequencies = Hash.new(0)
+    @block_hash_frequencies = Hash.new(0)
     @key_occurrences = Hash.new(0)
     @success_count = 0
     @failure_count = 0
@@ -55,6 +57,8 @@ class TransactionAnalyzer
     @data.each_with_index do |transaction, index|
       count_success(transaction)
       track_id_frequency(transaction['id']) if transaction['id']
+      track_hash_frequency(transaction['hash']) if transaction['hash']
+      track_block_hash_frequency(transaction['block_hash']) if transaction['block_hash']
       check_fields(transaction, index)
       check_data_types(transaction, index)
       check_actions_structure(transaction, index)
@@ -70,6 +74,18 @@ class TransactionAnalyzer
     elsif success_value == false
       @failure_count += 1
     end
+  end
+
+  def track_id_frequency(id)
+    @id_frequencies[id] += 1
+  end
+
+  def track_hash_frequency(hash_value)
+    @hash_frequencies[hash_value] += 1
+  end
+
+  def track_block_hash_frequency(block_hash)
+    @block_hash_frequencies[block_hash] += 1
   end
 
   def check_action_data_schemas(transaction, index)
@@ -97,10 +113,6 @@ class TransactionAnalyzer
         log_issue(__method__, index, transaction, "Unknown action type '#{action['type']}'.")
       end
     end
-  end
-
-  def track_id_frequency(id)
-    @id_frequencies[id] += 1
   end
 
   def check_fields(transaction, index)
@@ -165,6 +177,8 @@ class TransactionAnalyzer
     puts "Failed: #{@failure_count}"
 
     report_id_duplicates
+    report_hash_duplicates
+    report_block_hash_duplicates
     report_key_occurrences
     report_validation_issues
   end
@@ -175,6 +189,24 @@ class TransactionAnalyzer
       puts "✅ No duplicate IDs found."
     else
       puts "❌ Duplicate IDs: #{duplicates.join(', ')}."
+    end
+  end
+
+  def report_hash_duplicates
+    duplicates = @hash_frequencies.select { |_, freq| freq > 1 }.keys
+    if duplicates.empty?
+      puts "✅ No duplicate hashes found."
+    else
+      puts "❌ Duplicate hashes: #{duplicates.join(', ')}."
+    end
+  end
+
+  def report_block_hash_duplicates
+    duplicates = @block_hash_frequencies.select { |_, freq| freq > 1 }.keys
+    if duplicates.empty?
+      puts "✅ No duplicate block_hashes found."
+    else
+      puts "❌ Duplicate block_hashes: #{duplicates.join(', ')}."
     end
   end
 
@@ -203,13 +235,14 @@ end
 analyzer = TransactionAnalyzer.new('data/near_transactions.json')
 analyzer.run
 
-
 # Output:
 
 # Total Transactions: 100
 # Successful: 97
 # Failed: 3
 # ✅ No duplicate IDs found.
+# ✅ No duplicate hashes found.
+# ❌ Duplicate block_hashes: XsLC84r52ZwhsdyUZU6oLeyvxt8cSPVVXZjpfTBVmvr, 5hsfk358R39pBehoi35sYisTPwF8dkUuNtV5wHs3PEV8, HtzQJTCUTMuAUoURfYRUpdUpmPUSySWBFDZPKs3A8iQe.
 
 # --- Key Occurrences ---
 #   - 'actions': 100 times

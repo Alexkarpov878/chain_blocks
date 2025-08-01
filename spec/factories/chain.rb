@@ -3,6 +3,13 @@ FactoryBot.define do
     name { "Coin #{SecureRandom.hex}" }
     slug { "coin-#{SecureRandom.hex}" }
     token_decimals { 24 }
-    token_symbol { "Ⓝ" }
+    token_symbol { "$" }
+
+    trait :near do
+      name { "NEAR" }
+      slug { "near" }
+      token_decimals { 24 }
+      token_symbol { "Ⓝ" }
+    end
   end
 end
