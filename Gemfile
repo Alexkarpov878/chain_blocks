@@ -9,6 +9,8 @@ gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "jbuilder"
+gem "faraday"
+gem "faraday-retry"
 
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
