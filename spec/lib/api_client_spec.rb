@@ -7,7 +7,7 @@ describe ApiClient do
   describe '#get' do
     subject(:response) { api_client.get }
 
-    it 'returns response body', vcr: { cassette_name: 'near_transactions', record: :new_episodes } do
+    it 'returns response body', vcr: { cassette_name: 'near_transactions' } do
       expect(response).to be_present
     end
   end
