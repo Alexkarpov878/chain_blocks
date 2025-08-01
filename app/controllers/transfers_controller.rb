@@ -6,6 +6,7 @@ class TransfersController < ApplicationController
     @transfers = @chain.chain_transactions
                        .successful
                        .displayable_transfers
+                       .includes(block: :chain)
 
     @average_gas_used = @chain.average_gas_used
   end
