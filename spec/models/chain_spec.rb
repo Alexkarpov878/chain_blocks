@@ -23,4 +23,27 @@ describe Chain do
       expect(chain.last_processed_block_height).to eq(0)
     end
   end
+
+  describe '#average_gas_used' do
+    subject(:average) { chain.average_gas_used }
+
+    let(:chain) { create(:chain) }
+
+    context 'when there are no transactions' do
+      it { is_expected.to eq(0) }
+    end
+
+    context 'when there are transactions across multiple blocks' do
+      before do
+        block1 = create(:block, chain:)
+        block2 = create(:block, chain:)
+
+        create(:chain_transaction, block: block1, gas_used: 100)
+        create(:chain_transaction, block: block1, gas_used: 200)
+        create(:chain_transaction, block: block2, gas_used: 300)
+      end
+
+      it { is_expected.to eq(200) }
+    end
+  end
 end

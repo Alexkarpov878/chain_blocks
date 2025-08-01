@@ -5,4 +5,9 @@ class Chain < ApplicationRecord
   validates :token_symbol, presence: true
 
   has_many :blocks, dependent: :destroy
+  has_many :chain_transactions, through: :blocks
+
+  def average_gas_used
+    chain_transactions.average(:gas_used).to_i
+  end
 end
