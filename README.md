@@ -11,6 +11,77 @@ Prep:
 
 - [Implement Core Blockchain Data Models](https://github.com/Alexkarpov878/chain_blocks/pull/4)
 
+2nd sitting: (~0.5h)
+
+- [Implement API Client](https://github.com/Alexkarpov878/chain_blocks/pull/7)
+
+3rd sitting: (~2h)
+
+- [Implement Ingestion Service](https://github.com/Alexkarpov878/chain_blocks/pull/8/files)
+- [Implement Front End and Scopes](https://github.com/Alexkarpov878/chain_blocks/pull/9/files)
+
+## Setup Instructions
+
+To set up and run the project locally:
+
+1. Clone the repository:
+
+   ```
+   git clone https://github.com/Alexkarpov878/chain_blocks.git
+   cd chain_blocks
+   ```
+
+2. Install dependencies:
+
+   ```
+   bundle install
+   ```
+
+3. Set up the database:
+
+   ```
+   bin/rails db:setup
+   ```
+
+4. Configure environment variables (copy `.env.example` to `.env` and update as needed):
+
+   ```
+   cp .env.example .env
+   ```
+
+   - Update `CHAIN__NEAR_API_ENDPOINT` with the API URL (e.g., `https://4816b0d3-d97d-47c4-a02c-298a5081c0f9.mock.pstmn.io/near/transactions`).
+   - The API key is assumed required but works without one in the mock; in production, store it securely (e.g., via Rails credentials or a password manager).
+
+5. Start the Rails server:
+
+   ```
+   rails server
+   ```
+
+   - Visit `http://localhost:3000` to see the root index page with transfers and average gas burnt.
+
+6. Ingest data (run in console or as a rake task if set up):
+
+   ```
+   rails console
+   Transactions::IngestionService.call(chain_slug: 'near')
+   ```
+
+   - This fetches and persists transactions. Run it multiple times to simulate historical data persistence.
+
+Tradeoffs/Decisions:
+
+- Used a simple service for ingestion to keep it modular and testable; could be scheduled in production.
+- Focused on requirements (transfers list, average gas, persistence); deferred optimizations like pagination or real-time updates.
+- Modeled for multi-chain extensibility (e.g., adapter pattern), though only NEAR is implemented.
+- No styling/CSS added to prioritize functionality; could integrate Tailwind for a polished UI if time allowed.
+
+## If I Had More Time, I Would:
+
+- Optimize by last fetched height
+- Add backfill option/warning when required
+- Use upsert and batches when ingesting the data
+
 ## Take-Home Assessment instructions
 
 This Take Home Test is designed to give you an opportunity to show prospective team mates how you approach problem solving, your coding style, and how you handle new problem domains.
@@ -27,7 +98,8 @@ Create a block explorer app for a simulated NEAR blockchain. You should create a
 
 We have created a simulated NEAR blockchain API endpoint that you should use here:
 
-`https://4816b0d3-d97d-47c4-a02c-298a5081c0f9.mock.pstmn.io/near/transactions?api_key=SECRET_API_KEY`
+- Note: `SECRET_API_KEY` would be stored in a password manager and not as plaintext anywhere in the repo or inbox \*
+  `https://4816b0d3-d97d-47c4-a02c-298a5081c0f9.mock.pstmn.io/near/transactions?api_key=SECRET_API_KEY`
 
 If you run into any issues with this endpoint, please stop and contact us immediately.
 
